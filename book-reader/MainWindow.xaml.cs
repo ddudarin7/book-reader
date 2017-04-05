@@ -24,5 +24,15 @@ namespace book_reader
         {
             InitializeComponent();
         }
+
+        private void MainMenu_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MainMenu.Visibility = Visibility.Visible;
+        }
+
+        private void MainMenu_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MainMenu.Visibility = Visibility.Hidden;
+        }
     }
 }

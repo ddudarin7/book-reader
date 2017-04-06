@@ -6,11 +6,14 @@
     <DockPanel>
         <Grid DockPanel.Dock="Left" Width="50" MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="White">
             <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden" >
-                <MenuItem Header="proba"></MenuItem>
+                <MenuItem Header="Import" Click="Import_Click"></MenuItem>
                 <MenuItem Header="proba"></MenuItem>
             </Menu>
         </Grid>
-        <Grid DockPanel.Dock="Right">
-        </Grid>
+        <ScrollViewer>
+            <Grid DockPanel.Dock="Right" VerticalAlignment="Stretch" Background="Black">
+                <TextBox Name="pageTxt" TextAlignment="Justify" Text="Da li ovo radiiii?" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" />
+            </Grid>
+        </ScrollViewer>
     </DockPanel>
 </Window>

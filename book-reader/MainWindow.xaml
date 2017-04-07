@@ -5,33 +5,35 @@
         Title="MainWindow" Height="400" Width="800"
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <DockPanel>
-
-
-
         <Grid DockPanel.Dock="Left" Background="CadetBlue">
 
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-
                     <TextBox Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="No book selected." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
-                    
                 </ScrollViewer>
             </Grid>
 
             <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48">
-                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Collapsed">
+                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden">
                     <MenuItem Header="Import" Click="Import_Click"></MenuItem>
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
                 </Menu>
-
-
             </Grid>
 
-
+            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" VerticalAlignment="Bottom">
+                <Menu Name="ZoomMenu" Visibility="Hidden" HorizontalAlignment="Center" Height="25">
+                    <MenuItem Header="ZoomIn" Click="ZoomIn_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/book-reader;component/icons/z_in.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="ZoomOut"  Click="ZoomOut_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/book-reader;component/icons/z_out.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Menu>
+            </Grid>
         </Grid>
-
-
-
-
     </DockPanel>
 </Window>

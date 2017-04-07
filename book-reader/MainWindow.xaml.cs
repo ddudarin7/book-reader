@@ -31,13 +31,21 @@ namespace book_reader
         private void MainMenu_MouseEnter(object sender, MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Visible;
-
-            
         }
 
         private void MainMenu_MouseLeave(object sender, MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Hidden;
+        }
+
+        private void ZoomMenu_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ZoomMenu.Visibility = Visibility.Visible;
+        }
+
+        private void ZoomMenu_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ZoomMenu.Visibility = Visibility.Hidden;
         }
 
         private void Next_Page(object sender, RoutedEventArgs e)
@@ -75,5 +83,14 @@ namespace book_reader
             }
         }
 
+        private void ZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            pageTxt.FontSize = pageTxt.FontSize + 3;
+        }
+
+        private void ZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            pageTxt.FontSize = pageTxt.FontSize - 3;
+        }
     }
 }

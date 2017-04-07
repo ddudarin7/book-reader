@@ -92,5 +92,50 @@ namespace book_reader
         {
             pageTxt.FontSize = pageTxt.FontSize - 3;
         }
+
+        private void TextBox_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.Copy;
+        }
+
+        private void TextBox_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                string[] droppedFilePaths = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+                foreach (var path in droppedFilePaths)
+                {
+                    string location = null;
+
+                    FileInfo fi = new FileInfo(path);
+                    //fi.Length  //File size
+                    pageTxt.Text = fi.DirectoryName + "\\" + fi.Name; //Directory
+                    
+                    using (var fs = fi.OpenRead())
+                    {
+                        try
+                        {
+                            book = new Book(fi.DirectoryName + "\\" + fi.Name);
+                            book.currentPage = 1;
+                            pageTxt.Text = book.Pages[book.currentPage].ToString();
+
+                        }
+                        catch
+                        {
+                            pageTxt.Text = "Knjiga mora biti u .txt formatu.";
+                        }
+                    }
+
+                    
+                }
+            
+        }
+
+    }
+
+        private void Drag_Handler(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

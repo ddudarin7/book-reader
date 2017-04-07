@@ -9,7 +9,7 @@
 
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <TextBox Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="No book selected." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
+                    <TextBox PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="No book selected." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
                 </ScrollViewer>
             </Grid>
 

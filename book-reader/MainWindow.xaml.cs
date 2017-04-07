@@ -48,12 +48,53 @@ namespace book_reader
             ZoomMenu.Visibility = Visibility.Hidden;
         }
 
-        private void Next_Page(object sender, RoutedEventArgs e)
+
+
+        private void Key_Pressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Right)
+            {
+                Next();
+            }
+            if (e.Key == Key.Left)
+            {
+                Prev();
+            }
+        }
+
+        private void Next()
         {
             if (book != null)
             {
-                book.currentPage++;
-                pageTxt.Text = book.Pages[book.currentPage].ToString();
+                if (book.currentPage >= 0 && book.currentPage < book.Pages.Count - 1)
+                {
+                    book.currentPage++;
+                    pageTxt.Text = book.Pages[book.currentPage].ToString();
+                }
+            }
+        }
+
+        
+
+        private void Next_Page(object sender, RoutedEventArgs e)
+        {
+            Next();
+        }
+
+        private void PrevPage()
+        {
+            Prev();
+        }
+
+        private void Prev()
+        {
+            if (book != null)
+            {
+                if (book.currentPage >= 1)
+                {
+                    book.currentPage--;
+                    pageTxt.Text = book.Pages[book.currentPage].ToString();
+                }
             }
         }
 
@@ -69,17 +110,10 @@ namespace book_reader
             if (result == true)
             {
                 pageTxt.Text = fileDialog.FileName;
-                //Novo
+
                 book = new Book(fileDialog.FileName);
-                book.currentPage = 1;
+                book.currentPage = 0;
                 pageTxt.Text = book.Pages[book.currentPage].ToString();
-
-                //Novo
-
-
-                //-------------Stari dio
-                //--------------Stari dio
-
             }
         }
 
@@ -89,11 +123,14 @@ namespace book_reader
             pageTxt.Width = pageTxt.Width + 100;
         }
 
+        
+
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
             pageTxt.FontSize = pageTxt.FontSize - 3;
             pageTxt.Width = pageTxt.Width - 100;
         }
+
 
         private void TextBox_DragEnter(object sender, DragEventArgs e)
         {
@@ -129,15 +166,25 @@ namespace book_reader
                     }
 
                     
-                }
+                }   
             
-        }
+            }
 
-    }
+        }
 
         private void Drag_Handler(object sender, DragEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

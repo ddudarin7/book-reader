@@ -6,21 +6,25 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <DockPanel>
         <Grid DockPanel.Dock="Left" Background="CadetBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="86*"/>
+                <RowDefinition Height="99*"/>
+            </Grid.RowDefinitions>
 
-            <Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <TextBox  PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="Select import from menu to select a book, or drag and drop the book to the paper." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
+            <Grid Grid.RowSpan="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewKeyDown="Key_Pressed">
+                    <TextBox PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="Select import from menu to choose a book, or drag and drop the book to the paper." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
                 </ScrollViewer>
             </Grid>
 
-            <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48">
+            <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48" Grid.RowSpan="2">
                 <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden">
                     <MenuItem Header="Import" Click="Import_Click"></MenuItem>
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
                 </Menu>
             </Grid>
 
-            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" VerticalAlignment="Bottom">
+            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" VerticalAlignment="Bottom" Grid.Row="1">
                 <Menu Name="ZoomMenu" Visibility="Hidden" HorizontalAlignment="Center" Height="25">
                     <MenuItem Header="ZoomIn" Click="ZoomIn_Click">
                         <MenuItem.Icon>
@@ -34,6 +38,7 @@
                     </MenuItem>
                 </Menu>
             </Grid>
+            
         </Grid>
     </DockPanel>
 </Window>

@@ -41,7 +41,7 @@ namespace book_reader
                     this.pages.Add(pageNum,pageFin);
                     pageNum++;
                 }
-                if(counter % 50 == 0)
+                if(counter % 50 == 0 && counter != 0)
                 {
 
                     Page newPage = new Page(temp);

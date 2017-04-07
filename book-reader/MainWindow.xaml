@@ -12,14 +12,14 @@
 
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    
-                        <TextBox Name="pageTxt" TextAlignment="Justify" Text="No book selected." AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" Width="700" />
+
+                    <TextBox Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="No book selected." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
                     
                 </ScrollViewer>
             </Grid>
 
             <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48">
-                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden">
+                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Collapsed">
                     <MenuItem Header="Import" Click="Import_Click"></MenuItem>
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
                 </Menu>

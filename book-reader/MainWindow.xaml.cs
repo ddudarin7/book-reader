@@ -31,11 +31,22 @@ namespace book_reader
         private void MainMenu_MouseEnter(object sender, MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Visible;
+
+            
         }
 
         private void MainMenu_MouseLeave(object sender, MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Hidden;
+        }
+
+        private void Next_Page(object sender, RoutedEventArgs e)
+        {
+            if (book != null)
+            {
+                book.currentPage++;
+                pageTxt.Text = book.Pages[book.currentPage].ToString();
+            }
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
@@ -52,7 +63,7 @@ namespace book_reader
                 pageTxt.Text = fileDialog.FileName;
                 //Novo
                 book = new Book(fileDialog.FileName);
-                book.currentPage = 0;
+                book.currentPage = 1;
                 pageTxt.Text = book.Pages[book.currentPage].ToString();
 
                 //Novo
@@ -63,5 +74,6 @@ namespace book_reader
 
             }
         }
+
     }
 }

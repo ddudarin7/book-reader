@@ -86,11 +86,13 @@ namespace book_reader
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
         {
             pageTxt.FontSize = pageTxt.FontSize + 3;
+            pageTxt.Width = pageTxt.Width + 100;
         }
 
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
             pageTxt.FontSize = pageTxt.FontSize - 3;
+            pageTxt.Width = pageTxt.Width - 100;
         }
 
         private void TextBox_DragEnter(object sender, DragEventArgs e)

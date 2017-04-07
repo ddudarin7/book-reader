@@ -21,6 +21,8 @@ namespace book_reader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Book book;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,8 +50,16 @@ namespace book_reader
             if (result == true)
             {
                 pageTxt.Text = fileDialog.FileName;
+                //Novo
+                book = new Book(fileDialog.FileName);
+                book.currentPage = 0;
+                pageTxt.Text = book.Pages[book.currentPage].ToString();
 
-                pageTxt.Text = File.ReadAllText(fileDialog.FileName);
+                //Novo
+
+
+                //-------------Stari dio
+                //--------------Stari dio
 
             }
         }

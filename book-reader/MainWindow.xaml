@@ -10,7 +10,7 @@
                 <MenuItem Header="proba"></MenuItem>
             </Menu>
         </Grid>
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid DockPanel.Dock="Right" VerticalAlignment="Stretch" Background="Black">
                 <TextBox Name="pageTxt" TextAlignment="Justify" Text="Da li ovo radiiii?" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" />
             </Grid>

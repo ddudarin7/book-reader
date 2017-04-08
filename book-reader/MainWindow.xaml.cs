@@ -158,6 +158,9 @@ namespace book_reader
 
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
+            if (pageTxt.FontSize <= 5) {
+                return;
+            }
             pageTxt.FontSize = pageTxt.FontSize - 3;
             pageTxt.Width = pageTxt.Width - 100;
         }

@@ -288,5 +288,17 @@ namespace book_reader
                 pageTxt12.Text = book.Pages[book.currentPage1].ToString();
             }
         }
+
+        private void GoToPage(object sender, RoutedEventArgs e)
+        {
+            book.currentPage = Convert.ToInt32(PageInput.Text);
+            book.currentPage1 = book.currentPage + 1;
+            pageTxt.Text = book.Pages[book.currentPage].ToString();
+
+            pageTxt11.Text = book.Pages[book.currentPage].ToString();
+            pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+
+
+        }
     }
 }

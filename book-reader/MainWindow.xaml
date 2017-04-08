@@ -49,13 +49,15 @@
                 </Menu>
             </Grid>
 
-            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" Width="200" VerticalAlignment="Bottom" Grid.Row="1">
+            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" Width="500" VerticalAlignment="Bottom" Grid.Row="1">
                 <Menu Name="ZoomMenu" Visibility="Hidden" HorizontalAlignment="Center" Height="25">
                     <MenuItem Header="ZoomIn" Click="ZoomIn_Click">
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/z_in.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <TextBox Name ="PageInput" Width="50"/>
+                    <MenuItem Header="Go To Page"  Click="GoToPage"/>
                     <MenuItem Header="ZoomOut"  Click="ZoomOut_Click">
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/z_out.png"/>

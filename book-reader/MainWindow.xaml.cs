@@ -66,25 +66,50 @@ namespace book_reader
             {
                 if (book.currentPage >= 0 && book.currentPage < book.Pages.Count - 1)
                 {
-                    book.currentPage++;
-                    book.currentPage1++;
-                    pageTxt.Text = book.Pages[book.currentPage].ToString();
-                    try {
-                        if (book.currentPage % 2 == 0)
-                        {
-                            pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                            pageTxt12.Text = book.Pages[book.currentPage + 1].ToString();
-                        }
-                        else {
-                            pageTxt11.Text = book.Pages[book.currentPage-1].ToString();
-                            pageTxt12.Text = book.Pages[book.currentPage].ToString();
-                        }
+                    
+                    if (DoublePage.Visibility == Visibility.Hidden) {
+                        book.currentPage++;
+                        pageTxt.Text = book.Pages[book.currentPage].ToString();
                     }
-                    catch
-                    {           
-                        pageTxt12.Text = "End";
+                    else
+                    {
+                        try
+                        {
+                            if (book.currentPage + 2 <= book.Pages.Count - 1)
+                            {
+                                book.currentPage = book.currentPage + 2;
+                            }
+                            else {
+                                book.currentPage++;
+                            }
+                            DoublePageRefresh();
+                        }
+                        catch
+                        {
+                            pageTxt12.Text = "End";
+                        }
                     }
                 }
+            }
+        }
+
+        private void DoublePageRefresh() {
+            try
+            {
+                if (book.currentPage % 2 == 0)
+                {
+                    pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                    pageTxt12.Text = book.Pages[book.currentPage + 1].ToString();
+                }
+                else
+                {
+                    pageTxt11.Text = book.Pages[book.currentPage - 1].ToString();
+                    pageTxt12.Text = book.Pages[book.currentPage].ToString();
+                }
+            }
+            catch {
+                pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                pageTxt12.Text = "End";
             }
         }
 
@@ -104,18 +129,20 @@ namespace book_reader
             {
                 if (book.currentPage >= 1)
                 {
-                    book.currentPage--;
-                    book.currentPage1--;
-                    pageTxt.Text = book.Pages[book.currentPage].ToString();
-                    try
+                    if (DoublePage.Visibility == Visibility.Hidden)
                     {
-                        pageTxt11.Text = book.Pages[book.currentPage - 1].ToString();
-                        pageTxt12.Text = book.Pages[book.currentPage1 - 1].ToString();
+                        book.currentPage--;
+                        pageTxt.Text = book.Pages[book.currentPage].ToString();
                     }
-                    catch
-                    {
-                        pageTxt11.Text = book.Pages[0].ToString();
-                        pageTxt12.Text = book.Pages[0].ToString();
+                    else {
+                        if (book.currentPage < 2)
+                        {
+                            return;
+                        }
+                        else {
+                            book.currentPage = book.currentPage - 2;
+                            DoublePageRefresh();
+                        }
                     }
                 }
             }
@@ -138,7 +165,7 @@ namespace book_reader
 
                 pageTxt.Text = book.Pages[book.currentPage].ToString();
                 pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                pageTxt12.Text = book.Pages[book.currentPage1].ToString();                
+                pageTxt12.Text = book.Pages[book.currentPage+1].ToString();                
             }
         }
 
@@ -146,13 +173,15 @@ namespace book_reader
         {
             SinglePage.Visibility = Visibility.Hidden;
             DoublePage.Visibility = Visibility.Visible;
+
+            DoublePageRefresh();
         }
 
         private void Single_Page(object sender, RoutedEventArgs e)
         {
             DoublePage.Visibility = Visibility.Hidden;
             SinglePage.Visibility = Visibility.Visible;
-            
+            pageTxt.Text = book.Pages[book.currentPage].ToString();
         }
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
@@ -284,19 +313,17 @@ namespace book_reader
                 book.currentPage1 = Int32.Parse(lines[2]);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
                 pageTxt.Text = book.Pages[book.currentPage].ToString();
-                pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+                DoublePageRefresh();
             }
         }
 
         private void GoToPage(object sender, RoutedEventArgs e)
         {
             book.currentPage = Convert.ToInt32(PageInput.Text);
-            book.currentPage1 = book.currentPage + 1;
+            //book.currentPage1 = book.currentPage + 1;
             pageTxt.Text = book.Pages[book.currentPage].ToString();
 
-            pageTxt11.Text = book.Pages[book.currentPage].ToString();
-            pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+            DoublePageRefresh();
 
 
         }

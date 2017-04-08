@@ -150,21 +150,57 @@ namespace book_reader
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
         {
+            if (SinglePage.Visibility == Visibility.Visible)
+            {
+                ZoomInSigleView();
+            }
+            else {
+                ZoomInDoubleView();
+            }
+        }
+
+        private void ZoomInSigleView() {
             pageTxt.FontSize = pageTxt.FontSize + 3;
             pageTxt.Width = pageTxt.Width + 100;
         }
 
-        
+        private void ZoomInDoubleView() {
+            pageTxt11.FontSize = pageTxt11.FontSize + 3;
+            pageTxt11.Width = pageTxt11.Width + 100;
+            pageTxt12.FontSize = pageTxt12.FontSize + 3;
+            pageTxt12.Width = pageTxt12.Width + 100;
+        }
 
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            if (pageTxt.FontSize <= 5) {
+            if (SinglePage.Visibility == Visibility.Visible)
+            {
+                ZoomOutSingleView();
+            }
+            else {
+                ZoomOutDoubleView();
+            }
+        }
+
+        private void ZoomOutSingleView() {
+            if (pageTxt.FontSize <= 5)
+            {
                 return;
             }
             pageTxt.FontSize = pageTxt.FontSize - 3;
             pageTxt.Width = pageTxt.Width - 100;
         }
 
+        private void ZoomOutDoubleView() {
+            if (pageTxt11.FontSize <= 5)
+            {
+                return;
+            }
+            pageTxt11.FontSize = pageTxt11.FontSize - 3;
+            pageTxt11.Width = pageTxt11.Width - 100;
+            pageTxt12.FontSize = pageTxt12.FontSize - 3;
+            pageTxt12.Width = pageTxt12.Width - 100;
+        }
 
         private void TextBox_DragEnter(object sender, DragEventArgs e)
         {

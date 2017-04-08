@@ -19,22 +19,24 @@
 
             <Grid Name="DoublePage"  Grid.RowSpan="2" Visibility="Hidden" PreviewKeyDown="Key_Pressed">
                 <Grid.RowDefinitions>
-                    
                     <RowDefinition Height="80*"/>
-                    
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
                     <ColumnDefinition Width ="500"/>
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width ="500"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Name="pageTxt11" Grid.Row="1" Grid.Column="1" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Left" Width="500" TextWrapping="Wrap" IsReadOnly="True" Padding="30"/>
-                <TextBox Name="pageTxt12"  Grid.Row="1" Grid.Column="3" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Right" Width="500" TextWrapping="Wrap" IsReadOnly="True" Padding="30"/>
-                
-             </Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" >
+                    <TextBox Name="pageTxt11" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Left" Width="500" TextWrapping="NoWrap" IsReadOnly="True" Padding="30"/>
+                </ScrollViewer>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Grid.Row="1" Grid.Column="3" >
+                    <TextBox Name="pageTxt12" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Right" Width="500" TextWrapping="NoWrap" IsReadOnly="True" Padding="30"/>
+                </ScrollViewer>
+            </Grid>
                 
             <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48" Grid.RowSpan="2">
                 <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden">

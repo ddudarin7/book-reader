@@ -70,8 +70,15 @@ namespace book_reader
                     book.currentPage1++;
                     pageTxt.Text = book.Pages[book.currentPage].ToString();
                     try {
-                        pageTxt11.Text = book.Pages[book.currentPage + 1].ToString();
-                        pageTxt12.Text = book.Pages[book.currentPage1 + 1].ToString();
+                        if (book.currentPage % 2 == 0)
+                        {
+                            pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                            pageTxt12.Text = book.Pages[book.currentPage + 1].ToString();
+                        }
+                        else {
+                            pageTxt11.Text = book.Pages[book.currentPage-1].ToString();
+                            pageTxt12.Text = book.Pages[book.currentPage].ToString();
+                        }
                     }
                     catch
                     {           
@@ -258,8 +265,10 @@ namespace book_reader
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            string[] lines = { book.Path, book.currentPage.ToString(),book.currentPage1.ToString() };
-            System.IO.File.WriteAllLines(@".\metaData.txt", lines);
+            if (book != null) {
+                string[] lines = { book.Path, book.currentPage.ToString(), book.currentPage1.ToString() };
+                System.IO.File.WriteAllLines(@".\metaData.txt", lines);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -273,7 +282,7 @@ namespace book_reader
                 book=new Book(lines[0]);
                 book.currentPage = Int32.Parse(lines[1]);
                 book.currentPage1 = Int32.Parse(lines[2]);
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
                 pageTxt.Text = book.Pages[book.currentPage].ToString();
                 pageTxt11.Text = book.Pages[book.currentPage].ToString();
                 pageTxt12.Text = book.Pages[book.currentPage1].ToString();

@@ -48,8 +48,6 @@ namespace book_reader
             ZoomMenu.Visibility = Visibility.Hidden;
         }
 
-
-
         private void Key_Pressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Right)
@@ -76,15 +74,12 @@ namespace book_reader
                         pageTxt12.Text = book.Pages[book.currentPage1 + 1].ToString();
                     }
                     catch
-                    {
-                        
+                    {           
                         pageTxt12.Text = "End";
                     }
                 }
             }
         }
-
-        
 
         private void Next_Page(object sender, RoutedEventArgs e)
         {
@@ -134,10 +129,9 @@ namespace book_reader
                 book.currentPage = 0;
                 book.currentPage1 = 1;
 
-                    pageTxt.Text = book.Pages[book.currentPage].ToString();
-                    pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                    pageTxt12.Text = book.Pages[book.currentPage1].ToString();
-                
+                pageTxt.Text = book.Pages[book.currentPage].ToString();
+                pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                pageTxt12.Text = book.Pages[book.currentPage1].ToString();                
             }
         }
 
@@ -204,12 +198,8 @@ namespace book_reader
                             pageTxt.Text = "Knjiga mora biti u .txt formatu.";
                         }
                     }
-
-                    
                 }   
-            
             }
-
         }
 
         private void Drag_Handler(object sender, DragEventArgs e)

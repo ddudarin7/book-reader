@@ -45,8 +45,5 @@ namespace book_reader
             return res;
         }
 
-
-
-
     }
 }

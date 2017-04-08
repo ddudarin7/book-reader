@@ -17,7 +17,6 @@
                 </ScrollViewer>
             </Grid>
 
-            
             <Grid Name="DoublePage"  Grid.RowSpan="2" Visibility="Hidden" PreviewKeyDown="Key_Pressed">
                 <Grid.RowDefinitions>
                     
@@ -37,10 +36,7 @@
                 
              </Grid>
                 
-
-
-
-                    <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48" Grid.RowSpan="2">
+            <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Width="48" Grid.RowSpan="2">
                 <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden">
                     <MenuItem Header="Import" Click="Import_Click"></MenuItem>
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
@@ -49,7 +45,7 @@
                 </Menu>
             </Grid>
 
-            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" VerticalAlignment="Bottom" Grid.Row="1">
+            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" Width="200" VerticalAlignment="Bottom" Grid.Row="1">
                 <Menu Name="ZoomMenu" Visibility="Hidden" HorizontalAlignment="Center" Height="25">
                     <MenuItem Header="ZoomIn" Click="ZoomIn_Click">
                         <MenuItem.Icon>

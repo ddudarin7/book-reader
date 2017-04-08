@@ -57,12 +57,7 @@ namespace book_reader
 
         }
 
-
-
         public Dictionary<int,Page> Pages { get { return pages; } set { pages = value; } }
-
-
-
 
     }
 }

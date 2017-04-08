@@ -11,6 +11,7 @@ namespace book_reader
     {
         private Dictionary<int,Page> pages;
         public int currentPage;
+        public int currentPage1;
 
         public Book()
         {
@@ -41,7 +42,7 @@ namespace book_reader
                     this.pages.Add(pageNum,pageFin);
                     pageNum++;
                 }
-                if(counter % 50 == 0 && counter != 0)
+                if(counter % 37 == 0 && counter != 0)
                 {
 
                     Page newPage = new Page(temp);

@@ -69,7 +69,17 @@ namespace book_reader
                 if (book.currentPage >= 0 && book.currentPage < book.Pages.Count - 1)
                 {
                     book.currentPage++;
+                    book.currentPage1++;
                     pageTxt.Text = book.Pages[book.currentPage].ToString();
+                    try {
+                        pageTxt11.Text = book.Pages[book.currentPage + 1].ToString();
+                        pageTxt12.Text = book.Pages[book.currentPage1 + 1].ToString();
+                    }
+                    catch
+                    {
+                        
+                        pageTxt12.Text = "End";
+                    }
                 }
             }
         }
@@ -93,15 +103,24 @@ namespace book_reader
                 if (book.currentPage >= 1)
                 {
                     book.currentPage--;
+                    book.currentPage1--;
                     pageTxt.Text = book.Pages[book.currentPage].ToString();
+                    try
+                    {
+                        pageTxt11.Text = book.Pages[book.currentPage - 1].ToString();
+                        pageTxt12.Text = book.Pages[book.currentPage1 - 1].ToString();
+                    }
+                    catch
+                    {
+                        pageTxt11.Text = book.Pages[0].ToString();
+                        pageTxt12.Text = book.Pages[0].ToString();
+                    }
                 }
             }
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Ovo radi");
-            System.Diagnostics.Debug.WriteLine("Ovo radi");
             var fileDialog = new Microsoft.Win32.OpenFileDialog();
             fileDialog.DefaultExt = ".txt"; // Default file extension
             fileDialog.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension
@@ -113,8 +132,26 @@ namespace book_reader
 
                 book = new Book(fileDialog.FileName);
                 book.currentPage = 0;
-                pageTxt.Text = book.Pages[book.currentPage].ToString();
+                book.currentPage1 = 1;
+
+                    pageTxt.Text = book.Pages[book.currentPage].ToString();
+                    pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                    pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+                
             }
+        }
+
+        private void Double_Page(object sender, RoutedEventArgs e)
+        {
+            SinglePage.Visibility = Visibility.Hidden;
+            DoublePage.Visibility = Visibility.Visible;
+        }
+
+        private void Single_Page(object sender, RoutedEventArgs e)
+        {
+            DoublePage.Visibility = Visibility.Hidden;
+            SinglePage.Visibility = Visibility.Visible;
+            
         }
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
@@ -155,8 +192,11 @@ namespace book_reader
                         try
                         {
                             book = new Book(fi.DirectoryName + "\\" + fi.Name);
-                            book.currentPage = 1;
+                            book.currentPage = 0;
+                            book.currentPage1 = 1;
                             pageTxt.Text = book.Pages[book.currentPage].ToString();
+                            pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                            pageTxt12.Text = book.Pages[book.currentPage1].ToString();
 
                         }
                         catch

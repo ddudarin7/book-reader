@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:book_reader"
         Title="MainWindow" Height="400" Width="800"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Closing="Window_Closing"
+        Loaded="Window_Loaded">
     <DockPanel>
         <Grid DockPanel.Dock="Left" Background="CadetBlue">
             <Grid.RowDefinitions>

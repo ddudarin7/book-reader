@@ -12,6 +12,7 @@ namespace book_reader
         private Dictionary<int,Page> pages;
         public int currentPage;
         public int currentPage1;
+        private string path;
 
         public Book()
         {
@@ -20,8 +21,12 @@ namespace book_reader
 
         public Book(string path)
         {
-
+            this.path = path;
             LoadBook(path);
+        }
+
+        public string Path {
+            get { return path; }
         }
 
         public void LoadBook(string path) {

@@ -255,5 +255,29 @@ namespace book_reader
         {
 
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string[] lines = { book.Path, book.currentPage.ToString(),book.currentPage1.ToString() };
+            System.IO.File.WriteAllLines(@".\metaData.txt", lines);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string[] lines=System.IO.File.ReadAllLines(@".\metaData.txt");
+            if (lines.Length == 0)
+            {
+                return;
+            }
+            else {
+                book=new Book(lines[0]);
+                book.currentPage = Int32.Parse(lines[1]);
+                book.currentPage1 = Int32.Parse(lines[2]);
+
+                pageTxt.Text = book.Pages[book.currentPage].ToString();
+                pageTxt11.Text = book.Pages[book.currentPage].ToString();
+                pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+            }
+        }
     }
 }

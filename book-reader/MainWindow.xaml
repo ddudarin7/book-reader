@@ -7,7 +7,7 @@
         Closing="Window_Closing"
         Loaded="Window_Loaded">
     <DockPanel>
-        <Grid DockPanel.Dock="Left" Background="CadetBlue">
+        <Grid Name="Background" DockPanel.Dock="Left" Background="CadetBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="86*"/>
                 <RowDefinition Height="99*"/>
@@ -50,6 +50,31 @@
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
                     <MenuItem Header="Double page view" Click="Double_Page"></MenuItem>
                     <MenuItem Header="Single page view" Click="Single_Page"></MenuItem>
+                    <MenuItem Header="Change Color">
+                        <MenuItem InputGestureText="#2">
+                            <MenuItem.Header>
+                                <Grid Margin="0,0,-8,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30*"/>
+                                        <ColumnDefinition Width="43*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Content="Text color:" Height="26" Margin="26,22,30,21" Width="64"/>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Content="Page color:" Height="26" Margin="24,21,28,22" Width="68"/>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Content="Background:" Height="26" Margin="20,22,24,21" Width="76"/>
+                                    <Button Name="Text" Click ="colorPicker" Grid.Row="0" Grid.Column="1" Content="Choose..." Margin="30,32,37,26"/>
+                                    <Button Name="Page" Click ="colorPicker" Content="Choose..." Margin="30,26,39,32" RenderTransformOrigin="1.741,3.415" Grid.Column="1" Grid.Row="1"/>
+                                    <Button Name="Background1" Click ="colorPicker" Grid.Row="2" Content="Choose..." Margin="30,26,39,32" RenderTransformOrigin="1.539,3.688" Grid.Column="1"/>
+
+                                </Grid>
+                            </MenuItem.Header>
+                        </MenuItem> >
+
+                    </MenuItem>
                     <MenuItem Header="Proba2" Click="MenuItemColor_Click"></MenuItem>
                 </Menu>
             </Grid>

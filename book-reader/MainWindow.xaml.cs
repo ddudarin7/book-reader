@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace book_reader
 {
@@ -28,27 +29,27 @@ namespace book_reader
             InitializeComponent();
         }
 
-        private void MainMenu_MouseEnter(object sender, MouseEventArgs e)
+        private void MainMenu_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Visible;
         }
 
-        private void MainMenu_MouseLeave(object sender, MouseEventArgs e)
+        private void MainMenu_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainMenu.Visibility = Visibility.Hidden;
         }
 
-        private void ZoomMenu_MouseEnter(object sender, MouseEventArgs e)
+        private void ZoomMenu_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ZoomMenu.Visibility = Visibility.Visible;
         }
 
-        private void ZoomMenu_MouseLeave(object sender, MouseEventArgs e)
+        private void ZoomMenu_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ZoomMenu.Visibility = Visibility.Hidden;
         }
 
-        private void Key_Pressed(object sender, KeyEventArgs e)
+        private void Key_Pressed(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Right)
             {
@@ -249,16 +250,16 @@ namespace book_reader
             pageTxt12.Width = pageTxt12.Width - 100;
         }
 
-        private void TextBox_DragEnter(object sender, DragEventArgs e)
+        private void TextBox_DragEnter(object sender, System.Windows.DragEventArgs e)
         {
-            e.Effects = DragDropEffects.Copy;
+            e.Effects = System.Windows.DragDropEffects.Copy;
         }
 
-        private void TextBox_Drop(object sender, DragEventArgs e)
+        private void TextBox_Drop(object sender, System.Windows.DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop, true))
             {
-                string[] droppedFilePaths = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+                string[] droppedFilePaths = e.Data.GetData(System.Windows.DataFormats.FileDrop, true) as string[];
                 foreach (var path in droppedFilePaths)
                 {
                     string location = null;
@@ -293,7 +294,7 @@ namespace book_reader
             }
         }
 
-        private void Drag_Handler(object sender, DragEventArgs e)
+        private void Drag_Handler(object sender, System.Windows.DragEventArgs e)
         {
             e.Handled = true;
         }
@@ -303,7 +304,7 @@ namespace book_reader
 
         }
 
-        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
 
         }
@@ -351,6 +352,41 @@ namespace book_reader
 
             range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
 
+        }
+
+        private void colorPicker(object sender, RoutedEventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+            dialog.AllowFullOpen = true;
+
+
+            if ((sender as System.Windows.Controls.Button).Name.ToString() == "Text")
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
+                    SolidColorBrush color1 = new SolidColorBrush(color);
+                    pageTxt.Foreground = color1;
+                }
+            }
+            if ((sender as System.Windows.Controls.Button).Name.ToString() == "Page")
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
+                    SolidColorBrush color1 = new SolidColorBrush(color);
+                    pageTxt.Background = color1;
+                }
+            }
+            if ((sender as System.Windows.Controls.Button).Name.ToString() == "Background1")
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
+                    SolidColorBrush color1 = new SolidColorBrush(color);
+                    Background.Background = color1;
+                }
+            }
         }
     }
 }

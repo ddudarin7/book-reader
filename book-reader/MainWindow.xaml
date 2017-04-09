@@ -15,7 +15,11 @@
 
             <Grid Name="SinglePage"  Visibility="Visible" Grid.RowSpan="2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-                    <TextBox PreviewDragOver="Drag_Handler" AllowDrop="True" Visibility="Visible" PreviewDragEnter="TextBox_DragEnter" PreviewKeyDown="Key_Pressed" PreviewDrop="TextBox_Drop" Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" TextAlignment="Justify" Text="Select import from menu to choose a book, or drag and drop the book to the paper." AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" Width="700" />
+                    <RichTextBox PreviewDragOver="Drag_Handler" AllowDrop="True" Visibility="Visible" PreviewDragEnter="TextBox_DragEnter" PreviewKeyDown="Key_Pressed" PreviewDrop="TextBox_Drop" Name="pageTxt" FontSize="15" Padding="30" HorizontalContentAlignment="Stretch" AcceptsReturn="True" IsReadOnly="True" Width="700" >
+                        <FlowDocument>
+                            <Paragraph>Select import from menu to choose a book, or drag and drop the book to the paper.</Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
                 </ScrollViewer>
             </Grid>
 
@@ -32,11 +36,11 @@
                 </Grid.ColumnDefinitions>
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" >
-                    <TextBox Name="pageTxt11" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Left" Width="500" TextWrapping="NoWrap" IsReadOnly="True" Padding="30"/>
+                    <RichTextBox Name="pageTxt11" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Left" Width="500" IsReadOnly="True" Padding="30"/>
                 </ScrollViewer>
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Grid.Row="1" Grid.Column="3" >
-                    <TextBox Name="pageTxt12" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Right" Width="500" TextWrapping="NoWrap" IsReadOnly="True" Padding="30"/>
+                    <RichTextBox Name="pageTxt12" PreviewDragOver="Drag_Handler" AllowDrop="True" PreviewDragEnter="TextBox_DragEnter" PreviewDrop="TextBox_Drop" HorizontalAlignment="Right" Width="500" IsReadOnly="True" Padding="30"/>
                 </ScrollViewer>
             </Grid>
                 
@@ -46,6 +50,7 @@
                     <MenuItem Header="proba"  Click="Next_Page"></MenuItem>
                     <MenuItem Header="Double page view" Click="Double_Page"></MenuItem>
                     <MenuItem Header="Single page view" Click="Single_Page"></MenuItem>
+                    <MenuItem Header="Proba2" Click="MenuItemColor_Click"></MenuItem>
                 </Menu>
             </Grid>
 

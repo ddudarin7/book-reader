@@ -69,7 +69,8 @@ namespace book_reader
                     
                     if (DoublePage.Visibility == Visibility.Hidden) {
                         book.currentPage++;
-                        pageTxt.Text = book.Pages[book.currentPage].ToString();
+                        pageTxt.Document.Blocks.Clear();
+                        pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                     }
                     else
                     {
@@ -86,7 +87,8 @@ namespace book_reader
                         }
                         catch
                         {
-                            pageTxt12.Text = "End";
+                            pageTxt12.Document.Blocks.Clear();
+                            pageTxt12.Document.Blocks.Add(new Paragraph(new Run("End")));
                         }
                     }
                 }
@@ -98,18 +100,24 @@ namespace book_reader
             {
                 if (book.currentPage % 2 == 0)
                 {
-                    pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                    pageTxt12.Text = book.Pages[book.currentPage + 1].ToString();
+                    pageTxt11.Document.Blocks.Clear();
+                    pageTxt12.Document.Blocks.Clear();
+                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                    pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage + 1].ToString())));
                 }
                 else
                 {
-                    pageTxt11.Text = book.Pages[book.currentPage - 1].ToString();
-                    pageTxt12.Text = book.Pages[book.currentPage].ToString();
+                    pageTxt11.Document.Blocks.Clear();
+                    pageTxt12.Document.Blocks.Clear();
+                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage-1].ToString())));
+                    pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                 }
             }
             catch {
-                pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                pageTxt12.Text = "End";
+                pageTxt11.Document.Blocks.Clear();
+                pageTxt12.Document.Blocks.Clear();
+                pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                pageTxt12.Document.Blocks.Add(new Paragraph(new Run("End")));
             }
         }
 
@@ -132,7 +140,8 @@ namespace book_reader
                     if (DoublePage.Visibility == Visibility.Hidden)
                     {
                         book.currentPage--;
-                        pageTxt.Text = book.Pages[book.currentPage].ToString();
+                        pageTxt.Document.Blocks.Clear();
+                        pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                     }
                     else {
                         if (book.currentPage < 2)
@@ -157,15 +166,16 @@ namespace book_reader
 
             if (result == true)
             {
-                pageTxt.Text = fileDialog.FileName;
-
                 book = new Book(fileDialog.FileName);
                 book.currentPage = 0;
                 book.currentPage1 = 1;
 
-                pageTxt.Text = book.Pages[book.currentPage].ToString();
-                pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                pageTxt12.Text = book.Pages[book.currentPage+1].ToString();                
+                pageTxt.Document.Blocks.Clear();
+                pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                pageTxt11.Document.Blocks.Clear();
+                pageTxt12.Document.Blocks.Clear();
+                pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage+1].ToString())));                
             }
         }
 
@@ -181,7 +191,8 @@ namespace book_reader
         {
             DoublePage.Visibility = Visibility.Hidden;
             SinglePage.Visibility = Visibility.Visible;
-            pageTxt.Text = book.Pages[book.currentPage].ToString();
+            pageTxt.Document.Blocks.Clear();
+            pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
         }
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
@@ -254,8 +265,9 @@ namespace book_reader
 
                     FileInfo fi = new FileInfo(path);
                     //fi.Length  //File size
-                    pageTxt.Text = fi.DirectoryName + "\\" + fi.Name; //Directory
-                    
+                    //pageTxt.Text = fi.DirectoryName + "\\" + fi.Name; //Directory
+                    pageTxt.Document.Blocks.Clear();
+                    pageTxt.Document.Blocks.Add(new Paragraph(new Run(fi.DirectoryName + "\\" + fi.Name)));
                     using (var fs = fi.OpenRead())
                     {
                         try
@@ -263,14 +275,18 @@ namespace book_reader
                             book = new Book(fi.DirectoryName + "\\" + fi.Name);
                             book.currentPage = 0;
                             book.currentPage1 = 1;
-                            pageTxt.Text = book.Pages[book.currentPage].ToString();
-                            pageTxt11.Text = book.Pages[book.currentPage].ToString();
-                            pageTxt12.Text = book.Pages[book.currentPage1].ToString();
+                            pageTxt.Document.Blocks.Clear();
+                            pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                            pageTxt11.Document.Blocks.Clear();
+                            pageTxt12.Document.Blocks.Clear();
+                            pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                            pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage + 1].ToString())));
 
                         }
                         catch
                         {
-                            pageTxt.Text = "Knjiga mora biti u .txt formatu.";
+                            pageTxt.Document.Blocks.Clear();
+                            pageTxt.Document.Blocks.Add(new Paragraph(new Run("Knjiga mora biti u .txt formatu!")));
                         }
                     }
                 }   
@@ -311,8 +327,9 @@ namespace book_reader
                 book=new Book(lines[0]);
                 book.currentPage = Int32.Parse(lines[1]);
                 book.currentPage1 = Int32.Parse(lines[2]);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-                pageTxt.Text = book.Pages[book.currentPage].ToString();
+
+                pageTxt.Document.Blocks.Clear();
+                pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                 DoublePageRefresh();
             }
         }
@@ -320,11 +337,19 @@ namespace book_reader
         private void GoToPage(object sender, RoutedEventArgs e)
         {
             book.currentPage = Convert.ToInt32(PageInput.Text);
-            //book.currentPage1 = book.currentPage + 1;
-            pageTxt.Text = book.Pages[book.currentPage].ToString();
+            pageTxt.Document.Blocks.Clear();
+            pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
 
             DoublePageRefresh();
 
+
+        }
+
+        private void MenuItemColor_Click(object sender, RoutedEventArgs e)
+        {
+            TextRange range = new TextRange(pageTxt.Selection.Start, pageTxt.Selection.End);
+
+            range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
 
         }
     }

@@ -134,8 +134,15 @@ namespace book_reader
             {
                 pageTxt11.Document.Blocks.Clear();
                 pageTxt12.Document.Blocks.Clear();
-                pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
-                pageTxt12.Document.Blocks.Add(new Paragraph(new Run("End")));
+                if (book != null)
+                {
+                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                    pageTxt12.Document.Blocks.Add(new Paragraph(new Run("End")));
+                }
+                else {
+                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run("Select import from menu to choose a book, or drag and drop the book to the paper.")));
+                    pageTxt12.Document.Blocks.Add(new Paragraph(new Run("")));
+                }
             }
         }
 
@@ -211,8 +218,11 @@ namespace book_reader
         {
             DoublePage.Visibility = Visibility.Hidden;
             SinglePage.Visibility = Visibility.Visible;
-            pageTxt.Document.Blocks.Clear();
-            pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+            if (book != null) { 
+                pageTxt.Document.Blocks.Clear();
+            
+                pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+            }
         }
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
@@ -412,6 +422,8 @@ namespace book_reader
                     var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                     SolidColorBrush color1 = new SolidColorBrush(color);
                     pageTxt.Foreground = color1;
+                    pageTxt11.Foreground = color1;
+                    pageTxt12.Foreground = color1;
                     tempFore = color1;
                 }
             }
@@ -422,6 +434,8 @@ namespace book_reader
                     var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                     SolidColorBrush color1 = new SolidColorBrush(color);
                     pageTxt.Background = color1;
+                    pageTxt11.Background = color1;
+                    pageTxt12.Background = color1;
                     tempPage = color1;
                 }
             }
@@ -450,6 +464,10 @@ namespace book_reader
             {
                 pageTxt.Foreground = color1;
                 pageTxt.Background = color2;
+                pageTxt11.Foreground = color1;
+                pageTxt11.Background = color2;
+                pageTxt12.Foreground = color1;
+                pageTxt12.Background = color2;
                 Background.Background = color2;
                 //prebaci na noc
                 day = false;
@@ -460,23 +478,39 @@ namespace book_reader
                 {
                     pageTxt.Foreground = tempFore;
                     pageTxt.Background = white;
+                    pageTxt11.Foreground = tempFore;
+                    pageTxt11.Background = white;
+                    pageTxt12.Foreground = tempFore;
+                    pageTxt12.Background = white;
                     Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
                 }
                 if (tempPage != null)
                 {
                     pageTxt.Foreground = black;
                     pageTxt.Background = tempPage;
+                    pageTxt11.Foreground = black;
+                    pageTxt11.Background = tempPage;
+                    pageTxt12.Foreground = black;
+                    pageTxt12.Background = tempPage;
                     Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
                 }
                 if (tempBack != null) {
                     pageTxt.Foreground = black;
                     pageTxt.Background = white;
+                    pageTxt11.Foreground = black;
+                    pageTxt11.Background = white;
+                    pageTxt12.Foreground = black;
+                    pageTxt12.Background = white;
                     Background.Background = tempBack;
                 }
                 if (tempFore == null && tempPage == null && tempBack == null)
                 {
                     pageTxt.Foreground = black;
                     pageTxt.Background = white;
+                    pageTxt11.Foreground = black;
+                    pageTxt11.Background = white;
+                    pageTxt12.Foreground = black;
+                    pageTxt12.Background = white;
                     Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
                 }
                 day = true;
@@ -558,7 +592,6 @@ namespace book_reader
 
                             counter1++;
                         }
-
                     }
 
                     if (richText12.Contains(wordsToSearch))
@@ -574,24 +607,18 @@ namespace book_reader
                             if (searched != oldSearched)
                             {
                                 myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
-
                             }
                             myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
                             myRange2 = FindWordFromPosition(myRange2.End, wordsToSearch);
                             myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
                             counter2++;
                         }
-
                     }
                 }
             }
             catch { }
-
-
-
-
-
         }
+
         TextRange FindWordFromPosition(TextPointer position, string word)
         {
             while (position != null)
@@ -609,10 +636,8 @@ namespace book_reader
                         return new TextRange(start, end);
                     }
                 }
-
                 position = position.GetNextContextPosition(LogicalDirection.Forward);
             }
-
             // position will be null if "word" is not found.
             return null;
         }

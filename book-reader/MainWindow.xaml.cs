@@ -23,6 +23,10 @@ namespace book_reader
     public partial class MainWindow : Window
     {
         private Book book;
+        private bool day = true;
+        private SolidColorBrush tempFore = null;
+        private SolidColorBrush tempPage = null;
+        private SolidColorBrush tempBack = null;
 
         public MainWindow()
         {
@@ -67,8 +71,9 @@ namespace book_reader
             {
                 if (book.currentPage >= 0 && book.currentPage < book.Pages.Count - 1)
                 {
-                    
-                    if (DoublePage.Visibility == Visibility.Hidden) {
+
+                    if (DoublePage.Visibility == Visibility.Hidden)
+                    {
                         book.currentPage++;
                         pageTxt.Document.Blocks.Clear();
                         pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
@@ -81,7 +86,8 @@ namespace book_reader
                             {
                                 book.currentPage = book.currentPage + 2;
                             }
-                            else {
+                            else
+                            {
                                 book.currentPage++;
                             }
                             DoublePageRefresh();
@@ -96,7 +102,8 @@ namespace book_reader
             }
         }
 
-        private void DoublePageRefresh() {
+        private void DoublePageRefresh()
+        {
             try
             {
                 if (book.currentPage % 2 == 0)
@@ -110,11 +117,12 @@ namespace book_reader
                 {
                     pageTxt11.Document.Blocks.Clear();
                     pageTxt12.Document.Blocks.Clear();
-                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage-1].ToString())));
+                    pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage - 1].ToString())));
                     pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                 }
             }
-            catch {
+            catch
+            {
                 pageTxt11.Document.Blocks.Clear();
                 pageTxt12.Document.Blocks.Clear();
                 pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
@@ -144,12 +152,14 @@ namespace book_reader
                         pageTxt.Document.Blocks.Clear();
                         pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                     }
-                    else {
+                    else
+                    {
                         if (book.currentPage < 2)
                         {
                             return;
                         }
-                        else {
+                        else
+                        {
                             book.currentPage = book.currentPage - 2;
                             DoublePageRefresh();
                         }
@@ -176,7 +186,7 @@ namespace book_reader
                 pageTxt11.Document.Blocks.Clear();
                 pageTxt12.Document.Blocks.Clear();
                 pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
-                pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage+1].ToString())));                
+                pageTxt12.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage + 1].ToString())));
             }
         }
 
@@ -202,17 +212,20 @@ namespace book_reader
             {
                 ZoomInSigleView();
             }
-            else {
+            else
+            {
                 ZoomInDoubleView();
             }
         }
 
-        private void ZoomInSigleView() {
+        private void ZoomInSigleView()
+        {
             pageTxt.FontSize = pageTxt.FontSize + 3;
             pageTxt.Width = pageTxt.Width + 100;
         }
 
-        private void ZoomInDoubleView() {
+        private void ZoomInDoubleView()
+        {
             pageTxt11.FontSize = pageTxt11.FontSize + 3;
             pageTxt11.Width = pageTxt11.Width + 100;
             pageTxt12.FontSize = pageTxt12.FontSize + 3;
@@ -225,12 +238,14 @@ namespace book_reader
             {
                 ZoomOutSingleView();
             }
-            else {
+            else
+            {
                 ZoomOutDoubleView();
             }
         }
 
-        private void ZoomOutSingleView() {
+        private void ZoomOutSingleView()
+        {
             if (pageTxt.FontSize <= 5)
             {
                 return;
@@ -239,7 +254,8 @@ namespace book_reader
             pageTxt.Width = pageTxt.Width - 100;
         }
 
-        private void ZoomOutDoubleView() {
+        private void ZoomOutDoubleView()
+        {
             if (pageTxt11.FontSize <= 5)
             {
                 return;
@@ -290,7 +306,7 @@ namespace book_reader
                             pageTxt.Document.Blocks.Add(new Paragraph(new Run("Knjiga mora biti u .txt formatu!")));
                         }
                     }
-                }   
+                }
             }
         }
 
@@ -311,21 +327,23 @@ namespace book_reader
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (book != null) {
+            if (book != null)
+            {
                 string[] lines = { book.Path, book.currentPage.ToString(), book.currentPage1.ToString() };
-                System.IO.File.WriteAllLines(@".\metaData.txt", lines);
+                System.IO.File.WriteAllLines(@"..\..\metaData\metaData.txt", lines);
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] lines=System.IO.File.ReadAllLines(@".\metaData.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"..\..\metaData\metaData.txt");
             if (lines.Length == 0)
             {
                 return;
             }
-            else {
-                book=new Book(lines[0]);
+            else
+            {
+                book = new Book(lines[0]);
                 book.currentPage = Int32.Parse(lines[1]);
                 book.currentPage1 = Int32.Parse(lines[2]);
 
@@ -342,16 +360,32 @@ namespace book_reader
             pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
 
             DoublePageRefresh();
-
-
         }
 
         private void MenuItemColor_Click(object sender, RoutedEventArgs e)
         {
-            TextRange range = new TextRange(pageTxt.Selection.Start, pageTxt.Selection.End);
 
-            range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
+            if (!pageTxt.Selection.IsEmpty)
+            {
+                TextRange range = new TextRange(pageTxt.Selection.Start, pageTxt.Selection.End);
+                range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
+                //string name = book.GetBookName();
+                //string[] tokens = name.Split('.');
+                //string pageNo = book.currentPage.ToString();
+                //SaveXamlPackage(tokens[0]+pageNo);
+            }
+        }
 
+        void SaveXamlPackage(string fileName)
+        {
+            TextRange range;
+            FileStream fStream;
+            string path = "..\\..\\metaData\\" + fileName + ".xaml";
+            range = new TextRange(pageTxt.Document.ContentStart, pageTxt.Document.ContentEnd);
+            fStream = new FileStream(path, FileMode.Create);
+            range.Save(fStream, System.Windows.DataFormats.Xaml);
+
+            fStream.Close();
         }
 
         private void colorPicker(object sender, RoutedEventArgs e)
@@ -367,6 +401,7 @@ namespace book_reader
                     var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                     SolidColorBrush color1 = new SolidColorBrush(color);
                     pageTxt.Foreground = color1;
+                    tempFore = color1;
                 }
             }
             if ((sender as System.Windows.Controls.Button).Name.ToString() == "Page")
@@ -376,6 +411,7 @@ namespace book_reader
                     var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                     SolidColorBrush color1 = new SolidColorBrush(color);
                     pageTxt.Background = color1;
+                    tempPage = color1;
                 }
             }
             if ((sender as System.Windows.Controls.Button).Name.ToString() == "Background1")
@@ -385,7 +421,54 @@ namespace book_reader
                     var color = Color.FromArgb(dialog.Color.A, dialog.Color.R, dialog.Color.G, dialog.Color.B);
                     SolidColorBrush color1 = new SolidColorBrush(color);
                     Background.Background = color1;
+                    tempBack = color1;
                 }
+            }
+        }
+
+        private void ColorsChangeClick(object sender, RoutedEventArgs e)
+        {
+            var colorFore = Color.FromRgb(84, 35, 28);
+            SolidColorBrush color1 = new SolidColorBrush(colorFore);
+            var colorPage = Color.FromRgb(246, 197, 190);
+            SolidColorBrush color2 = new SolidColorBrush(colorPage);
+            var white = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            var black = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+
+            if (day)
+            {
+                pageTxt.Foreground = color1;
+                pageTxt.Background = color2;
+                Background.Background = color2;
+                //prebaci na noc
+                day = false;
+            }
+            else
+            {
+                if (tempFore != null)
+                {
+                    pageTxt.Foreground = tempFore;
+                    pageTxt.Background = white;
+                    Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
+                }
+                if (tempPage != null)
+                {
+                    pageTxt.Foreground = black;
+                    pageTxt.Background = tempPage;
+                    Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
+                }
+                if (tempBack != null) {
+                    pageTxt.Foreground = black;
+                    pageTxt.Background = white;
+                    Background.Background = tempBack;
+                }
+                if (tempFore == null && tempPage == null && tempBack == null)
+                {
+                    pageTxt.Foreground = black;
+                    pageTxt.Background = white;
+                    Background.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
+                }
+                day = true;
             }
         }
     }

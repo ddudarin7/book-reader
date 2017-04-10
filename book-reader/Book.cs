@@ -25,6 +25,11 @@ namespace book_reader
             LoadBook(path);
         }
 
+        public string GetBookName() {
+            string [] tokens=path.Split('\\');
+            return tokens[tokens.Length-1];
+        }
+
         public string Path {
             get { return path; }
         }

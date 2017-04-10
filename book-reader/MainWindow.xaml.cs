@@ -72,6 +72,18 @@ namespace book_reader
             {
                 Prev();
             }
+            if(e.Key == Key.Enter)
+            {
+                Search();
+            }
+        }
+        private void Key_Pressed2(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                changePage();
+            }
+            
         }
 
         private void Next()
@@ -374,7 +386,13 @@ namespace book_reader
 
         private void GoToPage(object sender, RoutedEventArgs e)
         {
-            try {
+            changePage();
+        }
+
+        private void changePage()
+        {
+            try
+            {
                 book.currentPage = Convert.ToInt32(PageInput.Text);
                 pageTxt.Document.Blocks.Clear();
                 pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));

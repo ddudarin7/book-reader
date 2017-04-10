@@ -110,14 +110,14 @@
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/search.png"/>
                         </MenuItem.Icon>
-                        <MenuItem StaysOpenOnClick="False">
+                        <MenuItem StaysOpenOnClick="True">
                             
                                 <MenuItem.Header>
                                 <TextBox Name="SearchBox" Width="100" KeyDown="Key_Pressed"/>
                             </MenuItem.Header>
                             
                         </MenuItem>
-                        <MenuItem Header="Search"  Click="Search_Click_Event"></MenuItem>
+                        <MenuItem Header="Search" StaysOpenOnClick="True" Click="Search_Click_Event"></MenuItem>
 
                     </MenuItem>
                 </Menu>
@@ -136,7 +136,7 @@
                             <Image Source="/book-reader;component/icons/z_in.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <TextBox Name ="PageInput" Width="50"/>
+                    <TextBox Name ="PageInput" Width="50" KeyDown="Key_Pressed2"/>
                     <MenuItem Header="Go To Page"  Click="GoToPage"/>
                     <MenuItem Click="ZoomOut_Click">
                         <MenuItem.Icon>

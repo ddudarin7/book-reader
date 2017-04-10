@@ -83,7 +83,6 @@ namespace book_reader
             {
                 changePage();
             }
-            
         }
 
         private void Next()
@@ -98,6 +97,7 @@ namespace book_reader
                         book.currentPage++;
                         pageTxt.Document.Blocks.Clear();
                         pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                        PageInput.Text = book.currentPage.ToString();
                     }
                     else
                     {
@@ -106,10 +106,12 @@ namespace book_reader
                             if (book.currentPage + 2 <= book.Pages.Count - 1)
                             {
                                 book.currentPage = book.currentPage + 2;
+                                PageInput.Text = book.currentPage.ToString();
                             }
                             else
                             {
                                 book.currentPage++;
+                                PageInput.Text = book.currentPage.ToString();
                             }
                             DoublePageRefresh();
                         }
@@ -117,6 +119,7 @@ namespace book_reader
                         {
                             pageTxt12.Document.Blocks.Clear();
                             pageTxt12.Document.Blocks.Add(new Paragraph(new Run("End")));
+                            
                         }
                     }
                 }
@@ -179,6 +182,7 @@ namespace book_reader
                         book.currentPage--;
                         pageTxt.Document.Blocks.Clear();
                         pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                        PageInput.Text = book.currentPage.ToString();
                     }
                     else
                     {
@@ -189,6 +193,7 @@ namespace book_reader
                         else
                         {
                             book.currentPage = book.currentPage - 2;
+                            PageInput.Text = book.currentPage.ToString();
                             DoublePageRefresh();
                         }
                     }
@@ -208,7 +213,7 @@ namespace book_reader
                 book = new Book(fileDialog.FileName);
                 book.currentPage = 0;
                 book.currentPage1 = 1;
-
+                PageInput.Text = book.currentPage.ToString();
                 pageTxt.Document.Blocks.Clear();
                 pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                 pageTxt11.Document.Blocks.Clear();
@@ -325,6 +330,7 @@ namespace book_reader
                             book.currentPage1 = 1;
                             pageTxt.Document.Blocks.Clear();
                             pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+                            PageInput.Text = book.currentPage.ToString();
                             pageTxt11.Document.Blocks.Clear();
                             pageTxt12.Document.Blocks.Clear();
                             pageTxt11.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
@@ -378,6 +384,8 @@ namespace book_reader
                 book.currentPage = Int32.Parse(lines[1]);
                 book.currentPage1 = Int32.Parse(lines[2]);
 
+                PageInput.Text = book.currentPage.ToString();
+
                 pageTxt.Document.Blocks.Clear();
                 pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
                 DoublePageRefresh();
@@ -396,7 +404,7 @@ namespace book_reader
                 book.currentPage = Convert.ToInt32(PageInput.Text);
                 pageTxt.Document.Blocks.Clear();
                 pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
-
+                PageInput.Text = book.currentPage.ToString();
                 DoublePageRefresh();
             }
             catch { }
@@ -634,6 +642,7 @@ namespace book_reader
                     }
                 }
             }
+            
             catch { }
         }
 

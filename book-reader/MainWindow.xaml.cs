@@ -28,6 +28,15 @@ namespace book_reader
         private SolidColorBrush tempPage = null;
         private SolidColorBrush tempBack = null;
 
+        private int counter = 0;
+        private int counter1 = 0;
+        private int counter2 = 0;
+        TextRange myRange = null;
+        TextRange myRange1 = null;
+        TextRange myRange2 = null;
+
+        string searched = "";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -135,7 +144,7 @@ namespace book_reader
             Next();
         }
 
-        private void PrevPage()
+        private void PrevPage(object sender, RoutedEventArgs e)
         {
             Prev();
         }
@@ -355,37 +364,39 @@ namespace book_reader
 
         private void GoToPage(object sender, RoutedEventArgs e)
         {
-            book.currentPage = Convert.ToInt32(PageInput.Text);
-            pageTxt.Document.Blocks.Clear();
-            pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
+            try {
+                book.currentPage = Convert.ToInt32(PageInput.Text);
+                pageTxt.Document.Blocks.Clear();
+                pageTxt.Document.Blocks.Add(new Paragraph(new Run(book.Pages[book.currentPage].ToString())));
 
-            DoublePageRefresh();
+                DoublePageRefresh();
+            }
+            catch { }
         }
 
         private void MenuItemColor_Click(object sender, RoutedEventArgs e)
         {
-
-            if (!pageTxt.Selection.IsEmpty)
+            if (SinglePage.Visibility == Visibility.Visible)
             {
                 TextRange range = new TextRange(pageTxt.Selection.Start, pageTxt.Selection.End);
+
                 range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
-                //string name = book.GetBookName();
-                //string[] tokens = name.Split('.');
-                //string pageNo = book.currentPage.ToString();
-                //SaveXamlPackage(tokens[0]+pageNo);
             }
-        }
+            else
+            {
+                if (!pageTxt11.Selection.IsEmpty)
+                {
+                    TextRange range = new TextRange(pageTxt11.Selection.Start, pageTxt11.Selection.End);
 
-        void SaveXamlPackage(string fileName)
-        {
-            TextRange range;
-            FileStream fStream;
-            string path = "..\\..\\metaData\\" + fileName + ".xaml";
-            range = new TextRange(pageTxt.Document.ContentStart, pageTxt.Document.ContentEnd);
-            fStream = new FileStream(path, FileMode.Create);
-            range.Save(fStream, System.Windows.DataFormats.Xaml);
+                    range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
+                }
+                if (!pageTxt12.Selection.IsEmpty)
+                {
+                    TextRange range = new TextRange(pageTxt12.Selection.Start, pageTxt11.Selection.End);
 
-            fStream.Close();
+                    range.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Red));
+                }
+            }
         }
 
         private void colorPicker(object sender, RoutedEventArgs e)
@@ -470,6 +481,140 @@ namespace book_reader
                 }
                 day = true;
             }
+        }
+
+        private void Search_Click_Event(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void Search()
+        {
+            string wordsToSearch = SearchBox.Text;
+            string oldSearched = searched;
+            searched = wordsToSearch;
+            if (searched != oldSearched)
+            {
+                counter = 0;
+            }
+            try
+            {
+                if (SinglePage.Visibility == Visibility.Visible)
+                {
+                    string richText = new TextRange(pageTxt.Document.ContentStart, pageTxt.Document.ContentEnd).Text;
+                    if (richText.Contains(wordsToSearch))
+                    {
+                        if (counter == 0)
+                        {
+                            try {
+                                if (searched != oldSearched)
+                                {
+                                    myRange.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+
+                                }
+                            }
+                            catch
+                            { }
+                            myRange = FindWordFromPosition(pageTxt.Document.ContentStart, wordsToSearch);
+                            myRange.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+                            counter++;
+                        }
+                        else if (counter > 0)
+                        {
+                            if (searched != oldSearched)
+                            {
+                                myRange.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+                                
+                            }
+                            myRange.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+                            myRange = FindWordFromPosition(myRange.End, wordsToSearch);
+                            myRange.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+                            counter++;
+                        }
+                    }
+                }
+                else
+                {
+                    string richText11 = new TextRange(pageTxt11.Document.ContentStart, pageTxt11.Document.ContentEnd).Text;
+                    string richText12 = new TextRange(pageTxt12.Document.ContentStart, pageTxt12.Document.ContentEnd).Text;
+                    if (richText11.Contains(wordsToSearch))
+                    {
+                        if (counter1 == 0)
+                        {
+                            myRange1 = FindWordFromPosition(pageTxt11.Document.ContentStart, wordsToSearch);
+                            myRange1.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+                            counter1++;
+                        }
+                        else if (counter1 > 0)
+                        {
+                            if (searched != oldSearched)
+                            {
+                                myRange1.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+
+                            }
+                            myRange1.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+                            myRange1 = FindWordFromPosition(myRange1.End, wordsToSearch);
+                            myRange1.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+
+                            counter1++;
+                        }
+
+                    }
+
+                    if (richText12.Contains(wordsToSearch))
+                    {
+                        if (counter2 == 0)
+                        {
+                            myRange2 = FindWordFromPosition(pageTxt12.Document.ContentStart, wordsToSearch);
+                            myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+                            counter2++;
+                        }
+                        else if (counter2 > 0)
+                        {
+                            if (searched != oldSearched)
+                            {
+                                myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+
+                            }
+                            myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.White));
+                            myRange2 = FindWordFromPosition(myRange2.End, wordsToSearch);
+                            myRange2.ApplyPropertyValue(FlowDocument.BackgroundProperty, new SolidColorBrush(Colors.Orange));
+                            counter2++;
+                        }
+
+                    }
+                }
+            }
+            catch { }
+
+
+
+
+
+        }
+        TextRange FindWordFromPosition(TextPointer position, string word)
+        {
+            while (position != null)
+            {
+                if (position.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
+                {
+                    string textRun = position.GetTextInRun(LogicalDirection.Forward);
+
+                    // Find the starting index of any substring that matches "word".
+                    int indexInRun = textRun.IndexOf(word);
+                    if (indexInRun >= 0)
+                    {
+                        TextPointer start = position.GetPositionAtOffset(indexInRun);
+                        TextPointer end = start.GetPositionAtOffset(word.Length);
+                        return new TextRange(start, end);
+                    }
+                }
+
+                position = position.GetNextContextPosition(LogicalDirection.Forward);
+            }
+
+            // position will be null if "word" is not found.
+            return null;
         }
     }
 }

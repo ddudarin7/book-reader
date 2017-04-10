@@ -45,12 +45,14 @@
             </Grid>
           
             <Grid MouseEnter="MainMenu_MouseEnter" MouseLeave="MainMenu_MouseLeave" Background="Transparent" HorizontalAlignment="Left" Grid.RowSpan="2">
-                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden" Width="50" Background="White">
+                <Menu Name="MainMenu" DockPanel.Dock="Left" Visibility="Hidden" Width="50" Background="White" >
+                    
                     <Menu.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
                         </ItemsPanelTemplate>
                     </Menu.ItemsPanel>
+                    
                     <MenuItem Header="Import" Click="Import_Click" ToolTip="Import" Margin="0,20,0,0">
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/import.png"/>
@@ -104,21 +106,46 @@
                             <Image Source="/book-reader;component/icons/highlight.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Search" ToolTip="Search" Margin="0,15,0,0" StaysOpenOnClick="True">
+                        <MenuItem.Icon>
+                            <Image Source="/book-reader;component/icons/search.png"/>
+                        </MenuItem.Icon>
+                        <MenuItem StaysOpenOnClick="False">
+                            
+                                <MenuItem.Header>
+                                <TextBox Name="SearchBox" Width="100" KeyDown="Key_Pressed"/>
+                            </MenuItem.Header>
+                            
+                        </MenuItem>
+                        <MenuItem Header="Search"  Click="Search_Click_Event"></MenuItem>
+
+                    </MenuItem>
                 </Menu>
             </Grid>
             
-            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" Width="500" VerticalAlignment="Bottom" Grid.Row="1">
+            <Grid MouseEnter="ZoomMenu_MouseEnter" MouseLeave="ZoomMenu_MouseLeave" Background="Transparent" Width="470" VerticalAlignment="Bottom" Grid.Row="1">
+                
                 <Menu Name="ZoomMenu" Visibility="Hidden" HorizontalAlignment="Center" Height="25">
-                    <MenuItem Header="ZoomIn" Click="ZoomIn_Click">
+                    <MenuItem  Click="PrevPage">
+                        <MenuItem.Icon>
+                            <Image Source="/book-reader;component/icons/left.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="ZoomIn_Click">
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/z_in.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <TextBox Name ="PageInput" Width="50"/>
                     <MenuItem Header="Go To Page"  Click="GoToPage"/>
-                    <MenuItem Header="ZoomOut"  Click="ZoomOut_Click">
+                    <MenuItem Click="ZoomOut_Click">
                         <MenuItem.Icon>
                             <Image Source="/book-reader;component/icons/z_out.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  Click="Next_Page">
+                        <MenuItem.Icon>
+                            <Image Source="/book-reader;component/icons/right.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </Menu>
